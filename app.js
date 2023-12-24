@@ -1,26 +1,23 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
-const port = 3000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const logMiddleware1 = (req, res, next) => {
-    console.log(`Middleware 1`);
-    next();
-};
-
-const logMiddleware2 = (req, res, next) => {
-    console.log(`Middleware 2`);
-    next();
-
-};
-
-app.use(logMiddleware1);
-app.use(logMiddleware2);
-
-app.get('/', (req, res) => {
-    res.send('Welcome to Home Page!');
+app.use('/add-product', (req, res, next) => {
+    console.log('In another middleware!');
+    res.send('<form action="/product" method="POST"><input type="text" name="title" style="padding:5px; margin:5px"><input type="text" name="size" style="padding:5px; margin:5px"><button typ="submit" style="padding:5px; margin:5px">Add Product</button</form>');
 });
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+app.post('/product', (req, res, next) => {
+    console.log('Title : '+ req.body.title);
+    console.log('Size : '+ req.body.size);
+    res.redirect("/");
 });
+
+app.use("/", (req, res, next) =>{
+    res.send('<h1>Hello from Express !</h1>')
+})
+
+app.listen(3000); 
