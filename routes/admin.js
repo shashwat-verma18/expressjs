@@ -5,26 +5,17 @@ const rootDir = require('../util/path');
 
 const router = express.Router();
 
-router.get('/add-product', (req, res, next) => {
-    res.sendFile(path.join(rootDir,'views/add-product.html'));
-});
+const {getAddProduct, postAddProduct, getContact, getSuccess, postSuccess} = require('../controllers/product');
 
-router.post('/add-product', (req, res, next) => {
-    console.log('Title : '+ req.body.title);
-    res.redirect("/");
-});
+router.get('/add-product', getAddProduct);
 
-router.get('/form', (req, res, next) => {
-    res.sendFile(path.join(rootDir,'views/form.html'));
-});
+router.post('/add-product', postAddProduct);
 
-router.post('/success', (req, res, next) => {
-    res.redirect("/admin/success");
-});
+router.get('/form', getContact);
 
-router.get('/success', (req, res, next) => {
-    res.sendFile(path.join(rootDir,'views/success.html'));
-});
+router.post('/success', postSuccess);
+
+router.get('/success', getSuccess);
 
 
 module.exports = router;
