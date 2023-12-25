@@ -18,7 +18,11 @@ router.get('/form', (req, res, next) => {
     res.sendFile(path.join(rootDir,'views/form.html'));
 });
 
-router.post('/form', (req, res, next) => {
+router.post('/success', (req, res, next) => {
+    res.redirect("/admin/success");
+});
+
+router.get('/success', (req, res, next) => {
     res.sendFile(path.join(rootDir,'views/success.html'));
 });
 
